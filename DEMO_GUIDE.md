@@ -1,0 +1,12 @@
+# Screen-recorded demonstration guide
+
+Record a real execution after connecting your own Gmail account. Use a separate inbox you own as the recipient. Do not show API keys, Google OAuth secrets, inbox contents belonging to others, or the local token file.
+
+1. Explain that Nila Leaf is a fictional skincare brand. Show the sample CSV and clarify that its test profiles are fictional. Run `python app.py discover --niche "skincare beauty" --location India --count 10` to find indexed public Instagram candidates. Explain that the results are unverified and come from a third-party search provider, not Instagram’s API.
+2. Show `python app.py import sample_data/influencers.csv` and `python app.py list`. A repeated import skips duplicate usernames. Show `AI_PROVIDER=ollama python app.py analyze 1` and explain the model is Qwen, not Claude. Review the score and summary for errors.
+3. Use your authorized test-inbox record rather than the example.com placeholders. Show `python app.py draft ID --kind initial`, review or edit the resulting draft, and use `python app.py send DRAFT_ID`. Approve only the exact test message. This is a real email.
+4. Reply from your test inbox in the same Gmail thread. Show `python app.py sync`, `python app.py process-replies`, and `python app.py show ID`. An interested response produces a draft; show that the reply draft is not sent automatically. Check the classification manually.
+5. For a separate test lead that has not replied, show creating and reviewing a follow-up draft. `python app.py queue-followup DRAFT_ID --stage 1` schedules it only after typing APPROVE. `python app.py watch` periodically syncs replies and sends approved drafts after the due interval while the worker is running. Stop the worker with Ctrl+C. Explain the real 3- and 5-day waits honestly; do not claim a live scheduled send happened if it did not. The offline `python demo.py` simulation can illustrate timing if labeled as simulated.
+6. Show `python app.py export crm-export.csv` and the CSV in a spreadsheet. SQLite is the CRM; Sheets export is a snapshot. Do not share real email addresses or private data in the submission.
+
+Current gaps: search uses a third-party web index and business contacts require verification, a live Claude API call requires available credits, the local Qwen model is not Claude, and follow-up/reply detection depends on polling the original thread. The local model can make mistakes. Describe these gaps rather than claiming full coverage.
